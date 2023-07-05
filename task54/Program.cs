@@ -43,48 +43,46 @@ int[] ReadInt(string text)
     System.Console.Write(text);
     return Array.ConvertAll(Console.ReadLine()!.Split(","), int.Parse); ;
 }
-void FindMinIndexes(int[,] matrix, out int minI, out int minJ)
+// void FuncMaxMin(int[,] array)
+// {
+//     for (int i = 0; i < array.GetLength(0) - 1; i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1) - 1; j++)
+//         {
+//             int min = 0;//array[i, j];
+//             if (min < array[i + 1, j + 1])
+//             {
+//                 int temp = array[i, j];
+//                 array[i, j] = array[i + 1, j + 1];
+//                 array[i + 1, j + 1] = temp;
+//             }
+//         }
+//     }
+// }
+
+void FuncMaxMin(int[,] matrix)
 {
-    minI = 0;
-    minJ = 0;
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            if (matrix[minI, minJ] > matrix[i, j])
+            for (int k = 0; k < matrix.GetLength(1) - 1; k++)
             {
-                minI = i;
-                minJ = j;
+                if (matrix[i, k] < matrix[i, k + 1])
+                {
+                    int temp = matrix[i, k + 1];
+                    matrix[i, k + 1] = matrix[i, k];
+                    matrix[i, k] = temp;
+                }
             }
         }
     }
 }
 
-int[,] GetResultResult(int[,] matrix, int minI, int minJ)
-{
-    int[,] resultMatrix = new int[matrix.GetLength(0) - 1, matrix.GetLength(1) - 1];
-
-    for (int i = 0, row = 0; i < matrix.GetLength(0); i++)
-    {
-        if (i == minI) continue;
-        for (int j = 0, col = 0; j < matrix.GetLength(1); j++)
-        {
-            if (j == minJ) continue;
-            resultMatrix[row, col] = matrix[i, j];
-            col++;
-        }
-        row++;
-    }
-
-    return resultMatrix;
-}
 // ----------------------------------
-
 int[] size = ReadInt("Задайте количество строк и столбцов через запятую: ");
 int[,] matrix = FillMatrix(size[0], size[1], 0, 9);
 PrintMatrix(matrix);
-
-FindMinIndexes(matrix, out int minI, out int minJ);
-System.Console.WriteLine();
-
-PrintMatrix(GetResultResult(matrix, minI, minJ));
+FuncMaxMin(matrix);
+System.Console.WriteLine("");
+PrintMatrix(matrix);
