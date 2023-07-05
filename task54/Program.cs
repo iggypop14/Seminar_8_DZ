@@ -43,22 +43,6 @@ int[] ReadInt(string text)
     System.Console.Write(text);
     return Array.ConvertAll(Console.ReadLine()!.Split(","), int.Parse); ;
 }
-// void FuncMaxMin(int[,] array)
-// {
-//     for (int i = 0; i < array.GetLength(0) - 1; i++)
-//     {
-//         for (int j = 0; j < array.GetLength(1) - 1; j++)
-//         {
-//             int min = 0;//array[i, j];
-//             if (min < array[i + 1, j + 1])
-//             {
-//                 int temp = array[i, j];
-//                 array[i, j] = array[i + 1, j + 1];
-//                 array[i + 1, j + 1] = temp;
-//             }
-//         }
-//     }
-// }
 
 void FuncMaxMin(int[,] matrix)
 {
